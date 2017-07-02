@@ -2,6 +2,8 @@
 /* -*- tab-width: 2 -*- */
 'use strict';
 
+var execSync = require('child_process').execSync;
+
 
 module.exports = (function () {
   var EX, ignVar = Boolean;
@@ -10,6 +12,7 @@ module.exports = (function () {
   EX = function compactJSONify(x, opt) {
     if (!opt) { opt = false; }
     opt = Object.assign({}, EX.defaultOpts, opt);
+    opt.width = Number(execSync('tput cols').toString()) || opt.width;
     opt.width = (+opt.width || 0);
     if (!opt.indent) { return JSON.stringify(x, opt.serializer, 0); }
     if ((typeof opt.indent) === 'number') {
@@ -22,11 +25,11 @@ module.exports = (function () {
 
   EX.defaultOpts = {
     breakAfterBroken: true,
-    breakAfterContainer: 'unless-empty',
+    breakAfterContainer: false,
     indent: 2,
     maxItemsPerLine: 4,
     serializer: null,
-    sortKeys: true,
+    sortKeys: false,
     width: 79,
   };
 
@@ -68,7 +71,9 @@ module.exports = (function () {
     // }
     if (fits) {
       buf.curLn += ' ' + item;
-      buf.itemsInLine += 1;
+      if (item.indexOf(':') > -1) {
+        buf.itemsInLine += 1;
+      }
     } else {
       EX.finishLine(buf, opt, item);
     }
