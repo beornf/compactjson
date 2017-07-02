@@ -2,7 +2,7 @@
 /* -*- tab-width: 2 -*- */
 'use strict';
 
-var execSync = require('child_process').execSync;
+var size = require('window-size');
 
 
 module.exports = (function () {
@@ -12,7 +12,7 @@ module.exports = (function () {
   EX = function compactJSONify(x, opt) {
     if (!opt) { opt = false; }
     opt = Object.assign({}, EX.defaultOpts, opt);
-    opt.width = Number(execSync('tput cols').toString()) || opt.width;
+    if (size) { opt.width = size.width; }
     opt.width = (+opt.width || 0);
     if (!opt.indent) { return JSON.stringify(x, opt.serializer, 0); }
     if ((typeof opt.indent) === 'number') {

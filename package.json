@@ -20,6 +20,9 @@
   "scripts": { "test": "nodejs test/test.js" },
   "directories": { "test": "test" },
 
+  "dependencies": {
+    "window-size": "^1.1.0"
+  },
   "devDependencies": {
     "async": "^2.0.1",
     "generic-diff": "^1.0.1"
