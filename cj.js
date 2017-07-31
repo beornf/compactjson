@@ -27,7 +27,7 @@ module.exports = (function () {
     breakAfterBroken: true,
     breakAfterContainer: false,
     indent: 2,
-    maxItemsPerLine: 4,
+    maxItemsPerLine: 1,
     serializer: null,
     sortKeys: false,
     width: 79,
@@ -88,7 +88,7 @@ module.exports = (function () {
 
 
   EX.checkItemFit = function (buf, opt, item) {
-    if (buf.itemsInLine === 0) { return true; }
+    // if (buf.itemsInLine === 0) { return true; }
     if (buf.itemsInLine >= opt.maxItemsPerLine) { return false; }
     if (opt.breakAfterBroken && (item.indexOf('\n')) !== -1) { return false; }
     var lengthEstimate = buf.curLn.length + 1 + item.length;
