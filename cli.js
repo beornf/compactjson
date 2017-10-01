@@ -1,4 +1,4 @@
-#!/usr/bin/env nodejs
+#!/usr/bin/env node
 /*jslint indent: 2, maxlen: 80, node: true */
 /* -*- coding: utf-8, tab-width: 2 -*- */
 'use strict';
